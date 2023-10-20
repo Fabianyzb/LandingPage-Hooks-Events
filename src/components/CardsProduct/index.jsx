@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const CardProduct = ({image, title, price}) => {
+const CardProduct = ({id,image, title, price, addToCart}) => {
   return (
     <div className="card h-100">
       {/* <!-- Sale badge--> */}
@@ -12,11 +12,7 @@ const CardProduct = ({image, title, price}) => {
         Sale
       </div>
       {/* <!-- Product image--> */}
-      <img
-        className="card-img-top"
-        src={image}
-        alt="..."
-      />
+      <img className="card-img-top"src={image} alt="..."/>
       {/* <!-- Product details--> */}
       <div className="card-body p-4">
         <div className="text-center">
@@ -40,26 +36,36 @@ const CardProduct = ({image, title, price}) => {
       {/* <!-- Product actions--> */}
       <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
         <div className="text-center">
-          <a className="btn btn-outline-dark mt-auto" href="#">
+          {/* <button className="btn btn-outline-dark mt-auto" onClick={() => addToCart()}>          
             Add to cart
-          </a>
+          </button> */}
+          {/* <button className="btn btn-outline-dark mt-auto" onClick={addToCart}>          
+            Add to cart
+          </button> */}
+          <button className="btn btn-outline-dark mt-auto" onClick={() => addToCart(id)}>          
+            Add to cart
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
+//Props por defecto
 CardProduct.defaultProps = {
+    id: Math.floor(Math.random() * 1000) + 1,
     image: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg",
-    title: "Product title",
-    price: 0.00
+    title: "Product title", 
+    price: 0.00,
+    addToCart: (id) => console.log(`Añadiendo el producto ${id}`)
 }
 
-
+//Validando tipos de datos con los props
 CardProduct.propTypes = {
     image: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired
+    price: PropTypes.number.isRequired,
+    addToCart: PropTypes.func
 }
 
 export default CardProduct;

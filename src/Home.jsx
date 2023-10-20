@@ -17,78 +17,88 @@ const Home = () => {
         { id: 8, image: 'https://picsum.photos/id/33/450/300', title:'Product 8', price: 80 },
     ]);
 
-    const [cart, setCart] = useState ([])
+    const [cart, setCart] = useState([6, 2, 9, 7, 6, 1, 3])
 
     const addToCart = (id) => {
-        console.log(id)
+        //console.log(id)
+        const newCart = [...cart];
+        newCart.push(id)
+        setCart(newCart)
     }
 
-  return (
-    <>
-      {/* <!-- Navigation--> */}
-      <Navbar />
-      {/* <!-- Header--> */}
-      <Header />
-      {/* <!-- Section--> */}
-      <section className="py-5">
-        <div className="container px-4 px-lg-5 mt-5">
-          <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            {
-                products.length > 0 ?
-                products.map((product) => {
-                    return (
-                        <div className="col mb-5" key={product.id}>
-                            {/* <CardProduct />  */}
-                           {/*  <CardProduct
-                            image={product.image} 
-                            title={product.title}
-                            price={product.price}
-                            /> */}
-                            <CardProduct {...product}/> 
-                        </div>   
-                    )
-                })
-                : (
-                    <div className="col mb-5">
-                        <h6 className="text-center">Sin productos a listar</h6>   
+    const removeFromCart = (id) => {
+        //id == 1
+        const cartFiltered = cart.filter((item) => item !== id); //[6, 2, 9, 7, 6, 3] 
+        setCart(cartFiltered)
+    }
+
+    return (
+        <>
+            {/*<!-- Navigation-->*/}
+            <Navbar logo={"Start Bootstrap"} cart={cart} />
+            {/* <!-- Header--> */}
+            <Header />
+            {/* <!-- Section--> */}
+            <section className="py-5">
+                <div className="container px-4 px-lg-5 mt-5">
+                    <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                        {
+                            products.length > 0 ?
+                                products.map((product) => {
+                                    return (
+                                        <div className="col mb-5" key={product.id}>
+                                            {/* <CardProduct /> */}
+                                            {/* <CardProduct
+                                                image={product.image}
+                                                title={product.title}
+                                                price={product.price}
+                                            /> */}
+                                            <CardProduct {...product} addToCart={addToCart} removeFromCart={removeFromCart} />
+                                        </div>
+                                    )
+                                })
+                                : (
+                                    <div className="col-12 mb-5">
+                                        <h6 className='text-center'>Sin productos a listar</h6>
+                                    </div>
+                                )
+                        }
+
+                        {/* <div className="col mb-5">
+                            <CardProduct 
+                                image={"https://picsum.photos/400/270"} 
+                                title={"Pasajes Ida y Vuelta Valparaiso"} 
+                                price={26000} 
+                            />
+                        </div>
+                        <div className="col mb-5">
+                            <CardProduct />
+                        </div>
+                        <div className="col mb-5">
+                            <CardProduct />
+                        </div>
+                        <div className="col mb-5">
+                            <CardProduct />
+                        </div>
+                        <div className="col mb-5">
+                            <CardProduct />
+                        </div>
+                        <div className="col mb-5">
+                            <CardProduct />
+                        </div>
+                        <div className="col mb-5">
+                            <CardProduct />
+                        </div>
+                        <div className="col mb-5">
+                            <CardProduct />
+                        </div> */}
                     </div>
-                )
-            }
-            {/* <div className="col mb-5">
-              <CardProduct
-                image={"https://picsum.photos/id/16/450/300"}
-                title={"Pasajes ida sin vuelta a la conchetumare"}
-                price={20000}
-              />
-            </div>
-            <div className="col mb-5">
-              <CardProduct />
-            </div>
-            <div className="col mb-5">
-              <CardProduct />
-            </div>
-            <div className="col mb-5">
-              <CardProduct />
-            </div>
-            <div className="col mb-5">
-              <CardProduct />
-            </div>
-            <div className="col mb-5">
-              <CardProduct />
-            </div>
-            <div className="col mb-5">
-              <CardProduct />
-            </div>
-            <div className="col mb-5">
-              <CardProduct />
-            </div> */}
-          </div>
-        </div>
-      </section>
-      {/* <!-- Footer-->*/}
-      <Footer />
-    </>
-  );
-};
+                </div>
+            </section>
+            {/* <!-- Footer--> */}
+            <Footer />
+        </>
+    )
+}
 
 export default Home;
